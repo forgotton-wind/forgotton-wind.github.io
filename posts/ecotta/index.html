@@ -7,7 +7,8 @@
 <meta name="robots" content="index, follow">
 <title>EcoTTA | Wind&#39;s Log</title>
 <meta name="keywords" content="">
-<meta name="description" content="EcoTTA: Memory-Efficient Continual Test-time Adaptation via Self-distilled Regularization EcoTTA是一篇研究持续TTA过程中如何减少内存消耗，从而能在端侧设备上实现持续适应的文章。本文借鉴了TinyTL、EATA等一系列工作，通过将源模型的encoder分块，并在每一块之间插入专属的元网络(包括一层BN和一个Conv的残差连接)，实现模型激活值内存占用大幅缩减。设计的损失函数包括经典的熵最小化，以及一个子蒸馏的正则项用于防止模型遗忘。">
+<meta name="description" content="EcoTTA: Memory-Efficient Continual Test-time Adaptation via Self-distilled Regularization EcoTTA是一篇研究持续TTA过程中如何减少内存消耗，从而能在端侧设备上实现持续适应的文章。本文借鉴了TinyTL、EATA等一系列工作，通过将源模型的encoder分块，并在每一块之间插入专属的元网络(包括一层BN和一个Conv的残差连接)，实现模型激活值内存占用大幅缩减。设计的损失函数包括经典的熵最小化，以及一个子蒸馏的正则项用于防止模型遗忘。
+图片">
 <meta name="author" content="forgotton-wind">
 <link rel="canonical" href="http://localhost:1313/posts/ecotta/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.56be4a166ae69616da9c6e57e5333091cff1b3022fa2a3219743efe2912e14bf.css" integrity="sha256-Vr5KFmrmlhbanG5X5TMwkc/xswIvoqMhl0Pv4pEuFL8=" rel="preload stylesheet" as="style">
@@ -56,7 +57,8 @@
 
     </style>
 </noscript><meta property="og:title" content="EcoTTA" />
-<meta property="og:description" content="EcoTTA: Memory-Efficient Continual Test-time Adaptation via Self-distilled Regularization EcoTTA是一篇研究持续TTA过程中如何减少内存消耗，从而能在端侧设备上实现持续适应的文章。本文借鉴了TinyTL、EATA等一系列工作，通过将源模型的encoder分块，并在每一块之间插入专属的元网络(包括一层BN和一个Conv的残差连接)，实现模型激活值内存占用大幅缩减。设计的损失函数包括经典的熵最小化，以及一个子蒸馏的正则项用于防止模型遗忘。" />
+<meta property="og:description" content="EcoTTA: Memory-Efficient Continual Test-time Adaptation via Self-distilled Regularization EcoTTA是一篇研究持续TTA过程中如何减少内存消耗，从而能在端侧设备上实现持续适应的文章。本文借鉴了TinyTL、EATA等一系列工作，通过将源模型的encoder分块，并在每一块之间插入专属的元网络(包括一层BN和一个Conv的残差连接)，实现模型激活值内存占用大幅缩减。设计的损失函数包括经典的熵最小化，以及一个子蒸馏的正则项用于防止模型遗忘。
+图片" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/posts/ecotta/" />
 <meta property="og:image" content="http://localhost:1313/images/papermod-cover.png" />
@@ -67,7 +69,8 @@
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:image" content="http://localhost:1313/images/papermod-cover.png" />
 <meta name="twitter:title" content="EcoTTA"/>
-<meta name="twitter:description" content="EcoTTA: Memory-Efficient Continual Test-time Adaptation via Self-distilled Regularization EcoTTA是一篇研究持续TTA过程中如何减少内存消耗，从而能在端侧设备上实现持续适应的文章。本文借鉴了TinyTL、EATA等一系列工作，通过将源模型的encoder分块，并在每一块之间插入专属的元网络(包括一层BN和一个Conv的残差连接)，实现模型激活值内存占用大幅缩减。设计的损失函数包括经典的熵最小化，以及一个子蒸馏的正则项用于防止模型遗忘。"/>
+<meta name="twitter:description" content="EcoTTA: Memory-Efficient Continual Test-time Adaptation via Self-distilled Regularization EcoTTA是一篇研究持续TTA过程中如何减少内存消耗，从而能在端侧设备上实现持续适应的文章。本文借鉴了TinyTL、EATA等一系列工作，通过将源模型的encoder分块，并在每一块之间插入专属的元网络(包括一层BN和一个Conv的残差连接)，实现模型激活值内存占用大幅缩减。设计的损失函数包括经典的熵最小化，以及一个子蒸馏的正则项用于防止模型遗忘。
+图片"/>
 
 
 <script type="application/ld+json">
@@ -96,12 +99,12 @@
   "@type": "BlogPosting",
   "headline": "EcoTTA",
   "name": "EcoTTA",
-  "description": "EcoTTA: Memory-Efficient Continual Test-time Adaptation via Self-distilled Regularization EcoTTA是一篇研究持续TTA过程中如何减少内存消耗，从而能在端侧设备上实现持续适应的文章。本文借鉴了TinyTL、EATA等一系列工作，通过将源模型的encoder分块，并在每一块之间插入专属的元网络(包括一层BN和一个Conv的残差连接)，实现模型激活值内存占用大幅缩减。设计的损失函数包括经典的熵最小化，以及一个子蒸馏的正则项用于防止模型遗忘。",
+  "description": "EcoTTA: Memory-Efficient Continual Test-time Adaptation via Self-distilled Regularization EcoTTA是一篇研究持续TTA过程中如何减少内存消耗，从而能在端侧设备上实现持续适应的文章。本文借鉴了TinyTL、EATA等一系列工作，通过将源模型的encoder分块，并在每一块之间插入专属的元网络(包括一层BN和一个Conv的残差连接)，实现模型激活值内存占用大幅缩减。设计的损失函数包括经典的熵最小化，以及一个子蒸馏的正则项用于防止模型遗忘。\n图片",
   "keywords": [
     
   ],
-  "articleBody": "EcoTTA: Memory-Efficient Continual Test-time Adaptation via Self-distilled Regularization EcoTTA是一篇研究持续TTA过程中如何减少内存消耗，从而能在端侧设备上实现持续适应的文章。本文借鉴了TinyTL、EATA等一系列工作，通过将源模型的encoder分块，并在每一块之间插入专属的元网络(包括一层BN和一个Conv的残差连接)，实现模型激活值内存占用大幅缩减。设计的损失函数包括经典的熵最小化，以及一个子蒸馏的正则项用于防止模型遗忘。\n",
-  "wordCount" : "9",
+  "articleBody": "EcoTTA: Memory-Efficient Continual Test-time Adaptation via Self-distilled Regularization EcoTTA是一篇研究持续TTA过程中如何减少内存消耗，从而能在端侧设备上实现持续适应的文章。本文借鉴了TinyTL、EATA等一系列工作，通过将源模型的encoder分块，并在每一块之间插入专属的元网络(包括一层BN和一个Conv的残差连接)，实现模型激活值内存占用大幅缩减。设计的损失函数包括经典的熵最小化，以及一个子蒸馏的正则项用于防止模型遗忘。\n图片\n",
+  "wordCount" : "10",
   "inLanguage": "en",
   "image": "http://localhost:1313/images/papermod-cover.png","datePublished": "2024-10-22T02:31:53+08:00",
   "dateModified": "2024-10-22T02:31:53+08:00",
@@ -228,6 +231,7 @@
 
   <div class="post-content"><h2 id="ecotta-memory-efficient-continual-test-time-adaptation-via-self-distilled-regularization">EcoTTA: Memory-Efficient Continual Test-time Adaptation via Self-distilled Regularization<a hidden class="anchor" aria-hidden="true" href="#ecotta-memory-efficient-continual-test-time-adaptation-via-self-distilled-regularization">#</a></h2>
 <p>EcoTTA是一篇研究持续TTA过程中如何减少内存消耗，从而能在端侧设备上实现持续适应的文章。本文借鉴了TinyTL、EATA等一系列工作，通过将源模型的encoder分块，并在每一块之间插入专属的元网络(包括一层BN和一个Conv的残差连接)，实现模型激活值内存占用大幅缩减。设计的损失函数包括经典的熵最小化，以及一个子蒸馏的正则项用于防止模型遗忘。</p>
+<p>图片</p>
 
 
   </div>
