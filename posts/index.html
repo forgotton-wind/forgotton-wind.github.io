@@ -141,6 +141,11 @@
                 </a>
             </li>
             <li>
+                <a href="https://forgotton-wind.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
                 <a href="https://github.com/adityatelange/hugo-PaperMod/wiki/" title="WiKi">
                     <span>WiKi</span>&nbsp;
                     <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
@@ -171,14 +176,40 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">EcoTTA
+    <h2 class="entry-hint-parent">Github连接问题
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Github连接注意事项 在git push或者pull的时候，连接github总是遇到各种各样的网络问题，现在一次性总结一下，方便以后回顾。
+网络问题 很多时候直接连不上，会先简单挂个梯子。但是往往未必有用。可以尝试两个方法。
+开全局模式。有效的原因可能是github不一定走代理，毕竟有时候还是能直连的。
+单独配置git的代理端口。配置方法是
+git config --global http.proxy &#34;http://127.0.0.1:xxxx&#34; git config --global https.proxy &#34;https://127.0.0.1:xxxx&#34; 其中xxxx是你的代理的端口号，windows可以通过网络-&gt;代理那边去查看。
+配置完后可以检查下：
+git config --global --edit 看看对不对，有时候字符会有些问题。
+密码问题 git push的时候，以前是可以输入github的账号密码的，但是现在都需要输入个人秘钥。这个需要再github的个人主页的settings里面去创建。
+但是这个方法很麻烦，每次git push都要输入一次秘钥。一劳永逸的方法是配置ssh连接。但是这个里面也有一些坑。
+首先配置ssh连接需要创建本机的ssh key：
+ssh-keygen -t rsa -C &#34;你的git绑定的邮箱名字&#34; 默认是会在~/.ssh/目录下，生成id_rsa, id_rsa_pub等文件。其中前者是你的私钥，后者是你要放到github的公钥。也是在github的个人settings里面ssh那里，按要求填进去就行。
+这样做完后一般可以连通，可以验证如下：
+ssh -T git@github.com 但有时候还是有问题，连接超时。调研了一下，发现最佳的解决方案是在~/.ssh/目录下创建一个config文件，其中的内容是:
+Host github.com HostName ssh.github.com User git Port 443 PreferredAuthentications publickey IdentityFile ~/.ssh/id_rsa 其中关键点在于第二行，因为github.com并不会自动的转换为ssh.github.com，我们启动的是后者，而不是前者，这会导致time out的产生。
+配置完这个就一切顺利了。</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-10-22 15:34:18 +0800 CST'>October 22, 2024</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;forgotton-wind</footer>
+  <a class="entry-link" aria-label="post link to Github连接问题" href="https://forgotton-wind.github.io/posts/github_connnet/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">论文阅读-EcoTTA
     </h2>
   </header>
   <div class="entry-content">
     <p>EcoTTA: Memory-Efficient Continual Test-time Adaptation via Self-distilled Regularization EcoTTA是一篇研究持续TTA过程中如何减少内存消耗，从而能在端侧设备上实现持续适应的文章。本文借鉴了TinyTL、EATA等一系列工作，通过将源模型的encoder分块，并在每一块之间插入专属的元网络(包括一层BN和一个Conv的残差连接)，实现模型激活值内存占用大幅缩减。设计的损失函数包括经典的熵最小化，以及一个子蒸馏的正则项用于防止模型遗忘。</p>
   </div>
   <footer class="entry-footer"><span title='2024-10-22 02:31:53 +0800 CST'>October 22, 2024</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;forgotton-wind</footer>
-  <a class="entry-link" aria-label="post link to EcoTTA" href="https://forgotton-wind.github.io/posts/ecotta/"></a>
+  <a class="entry-link" aria-label="post link to 论文阅读-EcoTTA" href="https://forgotton-wind.github.io/posts/ecotta/"></a>
 </article>
     </main>
     

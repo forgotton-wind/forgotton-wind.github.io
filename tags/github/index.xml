@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Wind&#39;s Log</title>
-    <link>https://forgotton-wind.github.io/</link>
-    <description>Recent content on Wind&#39;s Log</description>
+    <title>Github on Wind&#39;s Log</title>
+    <link>https://forgotton-wind.github.io/tags/github/</link>
+    <description>Recent content in Github on Wind&#39;s Log</description>
     <image>
       <title>Wind&#39;s Log</title>
       <url>https://forgotton-wind.github.io/images/papermod-cover.png</url>
@@ -12,7 +12,7 @@
     <generator>Hugo -- 0.123.8</generator>
     <language>en</language>
     <lastBuildDate>Tue, 22 Oct 2024 15:34:18 +0800</lastBuildDate>
-    <atom:link href="https://forgotton-wind.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://forgotton-wind.github.io/tags/github/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Github连接问题</title>
       <link>https://forgotton-wind.github.io/posts/github_connnet/</link>
@@ -33,13 +33,6 @@ ssh-keygen -t rsa -C &amp;#34;你的git绑定的邮箱名字&amp;#34; 默认是�
 ssh -T git@github.com 但有时候还是有问题，连接超时。调研了一下，发现最佳的解决方案是在~/.ssh/目录下创建一个config文件，其中的内容是:
 Host github.com HostName ssh.github.com User git Port 443 PreferredAuthentications publickey IdentityFile ~/.ssh/id_rsa 其中关键点在于第二行，因为github.com并不会自动的转换为ssh.github.com，我们启动的是后者，而不是前者，这会导致time out的产生。
 配置完这个就一切顺利了。</description>
-    </item>
-    <item>
-      <title>论文阅读-EcoTTA</title>
-      <link>https://forgotton-wind.github.io/posts/ecotta/</link>
-      <pubDate>Tue, 22 Oct 2024 02:31:53 +0800</pubDate>
-      <guid>https://forgotton-wind.github.io/posts/ecotta/</guid>
-      <description>EcoTTA: Memory-Efficient Continual Test-time Adaptation via Self-distilled Regularization EcoTTA是一篇研究持续TTA过程中如何减少内存消耗，从而能在端侧设备上实现持续适应的文章。本文借鉴了TinyTL、EATA等一系列工作，通过将源模型的encoder分块，并在每一块之间插入专属的元网络(包括一层BN和一个Conv的残差连接)，实现模型激活值内存占用大幅缩减。设计的损失函数包括经典的熵最小化，以及一个子蒸馏的正则项用于防止模型遗忘。</description>
     </item>
   </channel>
 </rss>

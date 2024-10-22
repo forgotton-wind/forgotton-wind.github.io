@@ -5,11 +5,25 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>论文阅读-EcoTTA | Wind&#39;s Log</title>
-<meta name="keywords" content="paper">
-<meta name="description" content="EcoTTA: Memory-Efficient Continual Test-time Adaptation via Self-distilled Regularization EcoTTA是一篇研究持续TTA过程中如何减少内存消耗，从而能在端侧设备上实现持续适应的文章。本文借鉴了TinyTL、EATA等一系列工作，通过将源模型的encoder分块，并在每一块之间插入专属的元网络(包括一层BN和一个Conv的残差连接)，实现模型激活值内存占用大幅缩减。设计的损失函数包括经典的熵最小化，以及一个子蒸馏的正则项用于防止模型遗忘。">
+<title>Github连接问题 | Wind&#39;s Log</title>
+<meta name="keywords" content="github, ssh">
+<meta name="description" content="Github连接注意事项 在git push或者pull的时候，连接github总是遇到各种各样的网络问题，现在一次性总结一下，方便以后回顾。
+网络问题 很多时候直接连不上，会先简单挂个梯子。但是往往未必有用。可以尝试两个方法。
+开全局模式。有效的原因可能是github不一定走代理，毕竟有时候还是能直连的。
+单独配置git的代理端口。配置方法是
+git config --global http.proxy &#34;http://127.0.0.1:xxxx&#34; git config --global https.proxy &#34;https://127.0.0.1:xxxx&#34; 其中xxxx是你的代理的端口号，windows可以通过网络-&gt;代理那边去查看。
+配置完后可以检查下：
+git config --global --edit 看看对不对，有时候字符会有些问题。
+密码问题 git push的时候，以前是可以输入github的账号密码的，但是现在都需要输入个人秘钥。这个需要再github的个人主页的settings里面去创建。
+但是这个方法很麻烦，每次git push都要输入一次秘钥。一劳永逸的方法是配置ssh连接。但是这个里面也有一些坑。
+首先配置ssh连接需要创建本机的ssh key：
+ssh-keygen -t rsa -C &#34;你的git绑定的邮箱名字&#34; 默认是会在~/.ssh/目录下，生成id_rsa, id_rsa_pub等文件。其中前者是你的私钥，后者是你要放到github的公钥。也是在github的个人settings里面ssh那里，按要求填进去就行。
+这样做完后一般可以连通，可以验证如下：
+ssh -T git@github.com 但有时候还是有问题，连接超时。调研了一下，发现最佳的解决方案是在~/.ssh/目录下创建一个config文件，其中的内容是:
+Host github.com HostName ssh.github.com User git Port 443 PreferredAuthentications publickey IdentityFile ~/.ssh/id_rsa 其中关键点在于第二行，因为github.com并不会自动的转换为ssh.github.com，我们启动的是后者，而不是前者，这会导致time out的产生。
+配置完这个就一切顺利了。">
 <meta name="author" content="forgotton-wind">
-<link rel="canonical" href="https://forgotton-wind.github.io/posts/ecotta/">
+<link rel="canonical" href="https://forgotton-wind.github.io/posts/github_connnet/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.56be4a166ae69616da9c6e57e5333091cff1b3022fa2a3219743efe2912e14bf.css" integrity="sha256-Vr5KFmrmlhbanG5X5TMwkc/xswIvoqMhl0Pv4pEuFL8=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://forgotton-wind.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://forgotton-wind.github.io/favicon-16x16.png">
@@ -18,7 +32,7 @@
 <link rel="mask-icon" href="https://forgotton-wind.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://forgotton-wind.github.io/posts/ecotta/">
+<link rel="alternate" hreflang="en" href="https://forgotton-wind.github.io/posts/github_connnet/">
 <noscript>
     <style>
         #theme-toggle,
@@ -55,19 +69,47 @@
         }
 
     </style>
-</noscript><meta property="og:title" content="论文阅读-EcoTTA" />
-<meta property="og:description" content="EcoTTA: Memory-Efficient Continual Test-time Adaptation via Self-distilled Regularization EcoTTA是一篇研究持续TTA过程中如何减少内存消耗，从而能在端侧设备上实现持续适应的文章。本文借鉴了TinyTL、EATA等一系列工作，通过将源模型的encoder分块，并在每一块之间插入专属的元网络(包括一层BN和一个Conv的残差连接)，实现模型激活值内存占用大幅缩减。设计的损失函数包括经典的熵最小化，以及一个子蒸馏的正则项用于防止模型遗忘。" />
+</noscript><meta property="og:title" content="Github连接问题" />
+<meta property="og:description" content="Github连接注意事项 在git push或者pull的时候，连接github总是遇到各种各样的网络问题，现在一次性总结一下，方便以后回顾。
+网络问题 很多时候直接连不上，会先简单挂个梯子。但是往往未必有用。可以尝试两个方法。
+开全局模式。有效的原因可能是github不一定走代理，毕竟有时候还是能直连的。
+单独配置git的代理端口。配置方法是
+git config --global http.proxy &#34;http://127.0.0.1:xxxx&#34; git config --global https.proxy &#34;https://127.0.0.1:xxxx&#34; 其中xxxx是你的代理的端口号，windows可以通过网络-&gt;代理那边去查看。
+配置完后可以检查下：
+git config --global --edit 看看对不对，有时候字符会有些问题。
+密码问题 git push的时候，以前是可以输入github的账号密码的，但是现在都需要输入个人秘钥。这个需要再github的个人主页的settings里面去创建。
+但是这个方法很麻烦，每次git push都要输入一次秘钥。一劳永逸的方法是配置ssh连接。但是这个里面也有一些坑。
+首先配置ssh连接需要创建本机的ssh key：
+ssh-keygen -t rsa -C &#34;你的git绑定的邮箱名字&#34; 默认是会在~/.ssh/目录下，生成id_rsa, id_rsa_pub等文件。其中前者是你的私钥，后者是你要放到github的公钥。也是在github的个人settings里面ssh那里，按要求填进去就行。
+这样做完后一般可以连通，可以验证如下：
+ssh -T git@github.com 但有时候还是有问题，连接超时。调研了一下，发现最佳的解决方案是在~/.ssh/目录下创建一个config文件，其中的内容是:
+Host github.com HostName ssh.github.com User git Port 443 PreferredAuthentications publickey IdentityFile ~/.ssh/id_rsa 其中关键点在于第二行，因为github.com并不会自动的转换为ssh.github.com，我们启动的是后者，而不是前者，这会导致time out的产生。
+配置完这个就一切顺利了。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://forgotton-wind.github.io/posts/ecotta/" />
+<meta property="og:url" content="https://forgotton-wind.github.io/posts/github_connnet/" />
 <meta property="og:image" content="https://forgotton-wind.github.io/images/papermod-cover.png" />
 <meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2024-10-22T02:31:53+08:00" />
-<meta property="article:modified_time" content="2024-10-22T02:31:53+08:00" />
+<meta property="article:published_time" content="2024-10-22T15:34:18+08:00" />
+<meta property="article:modified_time" content="2024-10-22T15:34:18+08:00" />
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:image" content="https://forgotton-wind.github.io/images/papermod-cover.png" />
-<meta name="twitter:title" content="论文阅读-EcoTTA"/>
-<meta name="twitter:description" content="EcoTTA: Memory-Efficient Continual Test-time Adaptation via Self-distilled Regularization EcoTTA是一篇研究持续TTA过程中如何减少内存消耗，从而能在端侧设备上实现持续适应的文章。本文借鉴了TinyTL、EATA等一系列工作，通过将源模型的encoder分块，并在每一块之间插入专属的元网络(包括一层BN和一个Conv的残差连接)，实现模型激活值内存占用大幅缩减。设计的损失函数包括经典的熵最小化，以及一个子蒸馏的正则项用于防止模型遗忘。"/>
+<meta name="twitter:title" content="Github连接问题"/>
+<meta name="twitter:description" content="Github连接注意事项 在git push或者pull的时候，连接github总是遇到各种各样的网络问题，现在一次性总结一下，方便以后回顾。
+网络问题 很多时候直接连不上，会先简单挂个梯子。但是往往未必有用。可以尝试两个方法。
+开全局模式。有效的原因可能是github不一定走代理，毕竟有时候还是能直连的。
+单独配置git的代理端口。配置方法是
+git config --global http.proxy &#34;http://127.0.0.1:xxxx&#34; git config --global https.proxy &#34;https://127.0.0.1:xxxx&#34; 其中xxxx是你的代理的端口号，windows可以通过网络-&gt;代理那边去查看。
+配置完后可以检查下：
+git config --global --edit 看看对不对，有时候字符会有些问题。
+密码问题 git push的时候，以前是可以输入github的账号密码的，但是现在都需要输入个人秘钥。这个需要再github的个人主页的settings里面去创建。
+但是这个方法很麻烦，每次git push都要输入一次秘钥。一劳永逸的方法是配置ssh连接。但是这个里面也有一些坑。
+首先配置ssh连接需要创建本机的ssh key：
+ssh-keygen -t rsa -C &#34;你的git绑定的邮箱名字&#34; 默认是会在~/.ssh/目录下，生成id_rsa, id_rsa_pub等文件。其中前者是你的私钥，后者是你要放到github的公钥。也是在github的个人settings里面ssh那里，按要求填进去就行。
+这样做完后一般可以连通，可以验证如下：
+ssh -T git@github.com 但有时候还是有问题，连接超时。调研了一下，发现最佳的解决方案是在~/.ssh/目录下创建一个config文件，其中的内容是:
+Host github.com HostName ssh.github.com User git Port 443 PreferredAuthentications publickey IdentityFile ~/.ssh/id_rsa 其中关键点在于第二行，因为github.com并不会自动的转换为ssh.github.com，我们启动的是后者，而不是前者，这会导致time out的产生。
+配置完这个就一切顺利了。"/>
 
 
 <script type="application/ld+json">
@@ -84,8 +126,8 @@
     {
       "@type": "ListItem",
       "position":  2 ,
-      "name": "论文阅读-EcoTTA",
-      "item": "https://forgotton-wind.github.io/posts/ecotta/"
+      "name": "Github连接问题",
+      "item": "https://forgotton-wind.github.io/posts/github_connnet/"
     }
   ]
 }
@@ -94,24 +136,24 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "论文阅读-EcoTTA",
-  "name": "论文阅读-EcoTTA",
-  "description": "EcoTTA: Memory-Efficient Continual Test-time Adaptation via Self-distilled Regularization EcoTTA是一篇研究持续TTA过程中如何减少内存消耗，从而能在端侧设备上实现持续适应的文章。本文借鉴了TinyTL、EATA等一系列工作，通过将源模型的encoder分块，并在每一块之间插入专属的元网络(包括一层BN和一个Conv的残差连接)，实现模型激活值内存占用大幅缩减。设计的损失函数包括经典的熵最小化，以及一个子蒸馏的正则项用于防止模型遗忘。",
+  "headline": "Github连接问题",
+  "name": "Github连接问题",
+  "description": "Github连接注意事项 在git push或者pull的时候，连接github总是遇到各种各样的网络问题，现在一次性总结一下，方便以后回顾。\n网络问题 很多时候直接连不上，会先简单挂个梯子。但是往往未必有用。可以尝试两个方法。\n开全局模式。有效的原因可能是github不一定走代理，毕竟有时候还是能直连的。\n单独配置git的代理端口。配置方法是\ngit config --global http.proxy \u0026#34;http://127.0.0.1:xxxx\u0026#34; git config --global https.proxy \u0026#34;https://127.0.0.1:xxxx\u0026#34; 其中xxxx是你的代理的端口号，windows可以通过网络-\u0026gt;代理那边去查看。\n配置完后可以检查下：\ngit config --global --edit 看看对不对，有时候字符会有些问题。\n密码问题 git push的时候，以前是可以输入github的账号密码的，但是现在都需要输入个人秘钥。这个需要再github的个人主页的settings里面去创建。\n但是这个方法很麻烦，每次git push都要输入一次秘钥。一劳永逸的方法是配置ssh连接。但是这个里面也有一些坑。\n首先配置ssh连接需要创建本机的ssh key：\nssh-keygen -t rsa -C \u0026#34;你的git绑定的邮箱名字\u0026#34; 默认是会在~/.ssh/目录下，生成id_rsa, id_rsa_pub等文件。其中前者是你的私钥，后者是你要放到github的公钥。也是在github的个人settings里面ssh那里，按要求填进去就行。\n这样做完后一般可以连通，可以验证如下：\nssh -T git@github.com 但有时候还是有问题，连接超时。调研了一下，发现最佳的解决方案是在~/.ssh/目录下创建一个config文件，其中的内容是:\nHost github.com HostName ssh.github.com User git Port 443 PreferredAuthentications publickey IdentityFile ~/.ssh/id_rsa 其中关键点在于第二行，因为github.com并不会自动的转换为ssh.github.com，我们启动的是后者，而不是前者，这会导致time out的产生。\n配置完这个就一切顺利了。",
   "keywords": [
-    "paper"
+    "github", "ssh"
   ],
-  "articleBody": "EcoTTA: Memory-Efficient Continual Test-time Adaptation via Self-distilled Regularization EcoTTA是一篇研究持续TTA过程中如何减少内存消耗，从而能在端侧设备上实现持续适应的文章。本文借鉴了TinyTL、EATA等一系列工作，通过将源模型的encoder分块，并在每一块之间插入专属的元网络(包括一层BN和一个Conv的残差连接)，实现模型激活值内存占用大幅缩减。设计的损失函数包括经典的熵最小化，以及一个子蒸馏的正则项用于防止模型遗忘。\n",
-  "wordCount" : "9",
+  "articleBody": "Github连接注意事项 在git push或者pull的时候，连接github总是遇到各种各样的网络问题，现在一次性总结一下，方便以后回顾。\n网络问题 很多时候直接连不上，会先简单挂个梯子。但是往往未必有用。可以尝试两个方法。\n开全局模式。有效的原因可能是github不一定走代理，毕竟有时候还是能直连的。\n单独配置git的代理端口。配置方法是\ngit config --global http.proxy \"http://127.0.0.1:xxxx\" git config --global https.proxy \"https://127.0.0.1:xxxx\" 其中xxxx是你的代理的端口号，windows可以通过网络-\u003e代理那边去查看。\n配置完后可以检查下：\ngit config --global --edit 看看对不对，有时候字符会有些问题。\n密码问题 git push的时候，以前是可以输入github的账号密码的，但是现在都需要输入个人秘钥。这个需要再github的个人主页的settings里面去创建。\n但是这个方法很麻烦，每次git push都要输入一次秘钥。一劳永逸的方法是配置ssh连接。但是这个里面也有一些坑。\n首先配置ssh连接需要创建本机的ssh key：\nssh-keygen -t rsa -C \"你的git绑定的邮箱名字\" 默认是会在~/.ssh/目录下，生成id_rsa, id_rsa_pub等文件。其中前者是你的私钥，后者是你要放到github的公钥。也是在github的个人settings里面ssh那里，按要求填进去就行。\n这样做完后一般可以连通，可以验证如下：\nssh -T git@github.com 但有时候还是有问题，连接超时。调研了一下，发现最佳的解决方案是在~/.ssh/目录下创建一个config文件，其中的内容是:\nHost github.com HostName ssh.github.com User git Port 443 PreferredAuthentications publickey IdentityFile ~/.ssh/id_rsa 其中关键点在于第二行，因为github.com并不会自动的转换为ssh.github.com，我们启动的是后者，而不是前者，这会导致time out的产生。\n配置完这个就一切顺利了。\n",
+  "wordCount" : "58",
   "inLanguage": "en",
-  "image": "https://forgotton-wind.github.io/images/papermod-cover.png","datePublished": "2024-10-22T02:31:53+08:00",
-  "dateModified": "2024-10-22T02:31:53+08:00",
+  "image": "https://forgotton-wind.github.io/images/papermod-cover.png","datePublished": "2024-10-22T15:34:18+08:00",
+  "dateModified": "2024-10-22T15:34:18+08:00",
   "author":{
     "@type": "Person",
     "name": "forgotton-wind"
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://forgotton-wind.github.io/posts/ecotta/"
+    "@id": "https://forgotton-wind.github.io/posts/github_connnet/"
   },
   "publisher": {
     "@type": "Organization",
@@ -205,9 +247,9 @@
   <header class="post-header">
     <div class="breadcrumbs"><a href="https://forgotton-wind.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://forgotton-wind.github.io/posts/">Posts</a></div>
     <h1 class="post-title entry-hint-parent">
-      论文阅读-EcoTTA
+      Github连接问题
     </h1>
-    <div class="post-meta"><span title='2024-10-22 02:31:53 +0800 CST'>October 22, 2024</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;forgotton-wind&nbsp;|&nbsp;<a href="https://github.com/adityatelange/hugo-PaperMod/tree/exampleSite/content/posts/EcoTTA.md" rel="noopener noreferrer" target="_blank">Suggest Changes</a>
+    <div class="post-meta"><span title='2024-10-22 15:34:18 +0800 CST'>October 22, 2024</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;forgotton-wind&nbsp;|&nbsp;<a href="https://github.com/adityatelange/hugo-PaperMod/tree/exampleSite/content/posts/github_connnet.md" rel="noopener noreferrer" target="_blank">Suggest Changes</a>
 
 </div>
   </header> <div class="toc">
@@ -218,36 +260,81 @@
 
         <div class="inner"><ul>
                 <li>
-                    <a href="#ecotta-memory-efficient-continual-test-time-adaptation-via-self-distilled-regularization" aria-label="EcoTTA: Memory-Efficient Continual Test-time Adaptation via Self-distilled Regularization">EcoTTA: Memory-Efficient Continual Test-time Adaptation via Self-distilled Regularization</a>
+                    <a href="#github%e8%bf%9e%e6%8e%a5%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9" aria-label="Github连接注意事项">Github连接注意事项</a><ul>
+                        
+                <li>
+                    <a href="#%e7%bd%91%e7%bb%9c%e9%97%ae%e9%a2%98" aria-label="网络问题">网络问题</a></li>
+                <li>
+                    <a href="#%e5%af%86%e7%a0%81%e9%97%ae%e9%a2%98" aria-label="密码问题">密码问题</a>
                 </li>
+            </ul>
+            </li>
             </ul>
         </div>
     </details>
 </div>
 
-  <div class="post-content"><h2 id="ecotta-memory-efficient-continual-test-time-adaptation-via-self-distilled-regularization">EcoTTA: Memory-Efficient Continual Test-time Adaptation via Self-distilled Regularization<a hidden class="anchor" aria-hidden="true" href="#ecotta-memory-efficient-continual-test-time-adaptation-via-self-distilled-regularization">#</a></h2>
-<p>EcoTTA是一篇研究持续TTA过程中如何减少内存消耗，从而能在端侧设备上实现持续适应的文章。本文借鉴了TinyTL、EATA等一系列工作，通过将源模型的encoder分块，并在每一块之间插入专属的元网络(包括一层BN和一个Conv的残差连接)，实现模型激活值内存占用大幅缩减。设计的损失函数包括经典的熵最小化，以及一个子蒸馏的正则项用于防止模型遗忘。</p>
+  <div class="post-content"><h1 id="github连接注意事项">Github连接注意事项<a hidden class="anchor" aria-hidden="true" href="#github连接注意事项">#</a></h1>
+<p>在git push或者pull的时候，连接github总是遇到各种各样的网络问题，现在一次性总结一下，方便以后回顾。</p>
+<h2 id="网络问题">网络问题<a hidden class="anchor" aria-hidden="true" href="#网络问题">#</a></h2>
+<p>很多时候直接连不上，会先简单挂个梯子。但是往往未必有用。可以尝试两个方法。</p>
+<ul>
+<li>
+<p>开全局模式。有效的原因可能是github不一定走代理，毕竟有时候还是能直连的。</p>
+</li>
+<li>
+<p>单独配置git的代理端口。配置方法是</p>
+<pre tabindex="0"><code>git config --global http.proxy &#34;http://127.0.0.1:xxxx&#34;
+git config --global https.proxy &#34;https://127.0.0.1:xxxx&#34;
+</code></pre><p>其中xxxx是你的代理的端口号，windows可以通过网络-&gt;代理那边去查看。</p>
+<p>配置完后可以检查下：</p>
+<pre tabindex="0"><code>git config --global --edit
+</code></pre><p>看看对不对，有时候字符会有些问题。</p>
+</li>
+</ul>
+<h2 id="密码问题">密码问题<a hidden class="anchor" aria-hidden="true" href="#密码问题">#</a></h2>
+<p>git push的时候，以前是可以输入github的账号密码的，但是现在都需要输入个人秘钥。这个需要再github的个人主页的settings里面去创建。</p>
+<p>但是这个方法很麻烦，每次git push都要输入一次秘钥。一劳永逸的方法是配置ssh连接。但是这个里面也有一些坑。</p>
+<ul>
+<li>
+<p>首先配置ssh连接需要创建本机的ssh key：</p>
+<pre tabindex="0"><code>ssh-keygen -t rsa -C &#34;你的git绑定的邮箱名字&#34;
+</code></pre><p>默认是会在~/.ssh/目录下，生成id_rsa, id_rsa_pub等文件。其中前者是你的私钥，后者是你要放到github的公钥。也是在github的个人settings里面ssh那里，按要求填进去就行。</p>
+<p>这样做完后一般可以连通，可以验证如下：</p>
+<pre tabindex="0"><code>ssh -T git@github.com
+</code></pre><p>但有时候还是有问题，连接超时。调研了一下，发现最佳的解决方案是在~/.ssh/目录下创建一个config文件，其中的内容是:</p>
+<pre tabindex="0"><code>Host github.com
+HostName ssh.github.com
+User git
+Port 443
+PreferredAuthentications publickey
+IdentityFile ~/.ssh/id_rsa
+</code></pre><p>其中关键点在于第二行，因为github.com并不会自动的转换为ssh.github.com，我们启动的是后者，而不是前者，这会导致time out的产生。</p>
+<p>配置完这个就一切顺利了。</p>
+</li>
+</ul>
 
 
   </div>
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="https://forgotton-wind.github.io/tags/paper/">Paper</a></li>
+      <li><a href="https://forgotton-wind.github.io/tags/github/">Github</a></li>
+      <li><a href="https://forgotton-wind.github.io/tags/ssh/">Ssh</a></li>
     </ul>
 <nav class="paginav">
-  <a class="prev" href="https://forgotton-wind.github.io/posts/github_connnet/">
-    <span class="title">« Prev</span>
+  <a class="next" href="https://forgotton-wind.github.io/posts/ecotta/">
+    <span class="title">Next »</span>
     <br>
-    <span>Github连接问题</span>
+    <span>论文阅读-EcoTTA</span>
   </a>
 </nav>
 
 
 <ul class="share-buttons">
     <li>
-        <a target="_blank" rel="noopener noreferrer" aria-label="share 论文阅读-EcoTTA on x"
-            href="https://x.com/intent/tweet/?text=%e8%ae%ba%e6%96%87%e9%98%85%e8%af%bb-EcoTTA&amp;url=https%3a%2f%2fforgotton-wind.github.io%2fposts%2fecotta%2f&amp;hashtags=paper">
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Github连接问题 on x"
+            href="https://x.com/intent/tweet/?text=Github%e8%bf%9e%e6%8e%a5%e9%97%ae%e9%a2%98&amp;url=https%3a%2f%2fforgotton-wind.github.io%2fposts%2fgithub_connnet%2f&amp;hashtags=github%2cssh">
             <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
                 <path
                     d="M512 62.554 L 512 449.446 C 512 483.97 483.97 512 449.446 512 L 62.554 512 C 28.03 512 0 483.97 0 449.446 L 0 62.554 C 0 28.03 28.029 0 62.554 0 L 449.446 0 C 483.971 0 512 28.03 512 62.554 Z M 269.951 190.75 L 182.567 75.216 L 56 75.216 L 207.216 272.95 L 63.9 436.783 L 125.266 436.783 L 235.9 310.383 L 332.567 436.783 L 456 436.783 L 298.367 228.367 L 432.367 75.216 L 371.033 75.216 Z M 127.633 110 L 164.101 110 L 383.481 400.065 L 349.5 400.065 Z" />
@@ -255,8 +342,8 @@
         </a>
     </li>
     <li>
-        <a target="_blank" rel="noopener noreferrer" aria-label="share 论文阅读-EcoTTA on linkedin"
-            href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fforgotton-wind.github.io%2fposts%2fecotta%2f&amp;title=%e8%ae%ba%e6%96%87%e9%98%85%e8%af%bb-EcoTTA&amp;summary=%e8%ae%ba%e6%96%87%e9%98%85%e8%af%bb-EcoTTA&amp;source=https%3a%2f%2fforgotton-wind.github.io%2fposts%2fecotta%2f">
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Github连接问题 on linkedin"
+            href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fforgotton-wind.github.io%2fposts%2fgithub_connnet%2f&amp;title=Github%e8%bf%9e%e6%8e%a5%e9%97%ae%e9%a2%98&amp;summary=Github%e8%bf%9e%e6%8e%a5%e9%97%ae%e9%a2%98&amp;source=https%3a%2f%2fforgotton-wind.github.io%2fposts%2fgithub_connnet%2f">
             <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
                 <path
                     d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
@@ -264,8 +351,8 @@
         </a>
     </li>
     <li>
-        <a target="_blank" rel="noopener noreferrer" aria-label="share 论文阅读-EcoTTA on reddit"
-            href="https://reddit.com/submit?url=https%3a%2f%2fforgotton-wind.github.io%2fposts%2fecotta%2f&title=%e8%ae%ba%e6%96%87%e9%98%85%e8%af%bb-EcoTTA">
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Github连接问题 on reddit"
+            href="https://reddit.com/submit?url=https%3a%2f%2fforgotton-wind.github.io%2fposts%2fgithub_connnet%2f&title=Github%e8%bf%9e%e6%8e%a5%e9%97%ae%e9%a2%98">
             <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
                 <path
                     d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
@@ -273,8 +360,8 @@
         </a>
     </li>
     <li>
-        <a target="_blank" rel="noopener noreferrer" aria-label="share 论文阅读-EcoTTA on facebook"
-            href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fforgotton-wind.github.io%2fposts%2fecotta%2f">
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Github连接问题 on facebook"
+            href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fforgotton-wind.github.io%2fposts%2fgithub_connnet%2f">
             <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
                 <path
                     d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
@@ -282,8 +369,8 @@
         </a>
     </li>
     <li>
-        <a target="_blank" rel="noopener noreferrer" aria-label="share 论文阅读-EcoTTA on whatsapp"
-            href="https://api.whatsapp.com/send?text=%e8%ae%ba%e6%96%87%e9%98%85%e8%af%bb-EcoTTA%20-%20https%3a%2f%2fforgotton-wind.github.io%2fposts%2fecotta%2f">
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Github连接问题 on whatsapp"
+            href="https://api.whatsapp.com/send?text=Github%e8%bf%9e%e6%8e%a5%e9%97%ae%e9%a2%98%20-%20https%3a%2f%2fforgotton-wind.github.io%2fposts%2fgithub_connnet%2f">
             <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
                 <path
                     d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
@@ -291,8 +378,8 @@
         </a>
     </li>
     <li>
-        <a target="_blank" rel="noopener noreferrer" aria-label="share 论文阅读-EcoTTA on telegram"
-            href="https://telegram.me/share/url?text=%e8%ae%ba%e6%96%87%e9%98%85%e8%af%bb-EcoTTA&amp;url=https%3a%2f%2fforgotton-wind.github.io%2fposts%2fecotta%2f">
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Github连接问题 on telegram"
+            href="https://telegram.me/share/url?text=Github%e8%bf%9e%e6%8e%a5%e9%97%ae%e9%a2%98&amp;url=https%3a%2f%2fforgotton-wind.github.io%2fposts%2fgithub_connnet%2f">
             <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28" height="30px" width="30px" fill="currentColor">
                 <path
                     d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
@@ -300,8 +387,8 @@
         </a>
     </li>
     <li>
-        <a target="_blank" rel="noopener noreferrer" aria-label="share 论文阅读-EcoTTA on ycombinator"
-            href="https://news.ycombinator.com/submitlink?t=%e8%ae%ba%e6%96%87%e9%98%85%e8%af%bb-EcoTTA&u=https%3a%2f%2fforgotton-wind.github.io%2fposts%2fecotta%2f">
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Github连接问题 on ycombinator"
+            href="https://news.ycombinator.com/submitlink?t=Github%e8%bf%9e%e6%8e%a5%e9%97%ae%e9%a2%98&u=https%3a%2f%2fforgotton-wind.github.io%2fposts%2fgithub_connnet%2f">
             <svg version="1.1" xml:space="preserve" width="30px" height="30px" viewBox="0 0 512 512" fill="currentColor"
                 xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
                 <path
