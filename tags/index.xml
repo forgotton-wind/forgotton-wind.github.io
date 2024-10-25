@@ -11,8 +11,29 @@
     </image>
     <generator>Hugo -- 0.123.8</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 22 Oct 2024 15:34:18 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 25 Oct 2024 16:32:38 +0800</lastBuildDate>
     <atom:link href="https://forgotton-wind.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ArchLinux</title>
+      <link>https://forgotton-wind.github.io/tags/archlinux/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://forgotton-wind.github.io/tags/archlinux/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>GPGME</title>
+      <link>https://forgotton-wind.github.io/tags/gpgme/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://forgotton-wind.github.io/tags/gpgme/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Pacman</title>
+      <link>https://forgotton-wind.github.io/tags/pacman/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://forgotton-wind.github.io/tags/pacman/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Github</title>
       <link>https://forgotton-wind.github.io/tags/github/</link>
@@ -32,6 +53,13 @@
       <link>https://forgotton-wind.github.io/tags/paper/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://forgotton-wind.github.io/tags/paper/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>TTA</title>
+      <link>https://forgotton-wind.github.io/tags/tta/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://forgotton-wind.github.io/tags/tta/</guid>
       <description></description>
     </item>
   </channel>
